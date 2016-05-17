@@ -13,6 +13,7 @@ if ($_SERVER['HTTPS'] != "on") {
    exit();
 }
 
+// Function for calculation free memory usage
 function get_server_memory_usage() {
 
    $free = shell_exec('free');
@@ -26,6 +27,7 @@ function get_server_memory_usage() {
    return $memory_usage;
 }
 
+// Function for calculating the color of the percentage bar
 function get_bar_color($value) {
    if ($value < 45) {
       $color = "success";
@@ -37,20 +39,35 @@ function get_bar_color($value) {
    return $color;
 }
 
-// Build up a array with system information
+// Array for system information
+
+// Specifying the RootFS for used disk
+// If your Root disk is /dev/sda1 then use sda1 etc...
 $hdd = "simfs";
 
+// Building the FQDM based on hostname.domainname
 $system["hostname"] = exec("cat /etc/hostname") . "." . exec("dnsdomainname");
+// Getting OS type and kernel info via uname
 $system["os"] = exec("uname -mo");
 $system["uname"] = exec("uname -r");
 $system["uname_long"] = exec("uname -a");
 
+// Temporary variable for CPU usage because the PHP-Function sys_getloadavg()
+// returns a array
 $cpu = sys_getloadavg();
+
+// Array of usage Perentages
 
 $load["cpu"] = round($cpu[0] + 0.2, 1);
 $load["mem"] = round(get_server_memory_usage(), 1);
+// http://stackoverflow.com/questions/12778853/calculate-percentage-free-swap-space-with-free-and-awk
 $load["swap"] = round((1 - exec("free | awk '/Swap/ { print $4/$2 }'")) * 100 + 0.2, 1);
+// http://unix.stackexchange.com/questions/64815/how-to-print-the-percentage-of-disk-use-from-df-hl
 $load["disk"] = round(exec("df -hl | awk '/^\/dev\/" . $hdd . "/ { sum+=$5 } END { print sum }'"), 1);
+
+// Unsetting temporary variables because we don't need them anymore
+unset($cpu);
+unset($hdd);
 ?>
 
 <html lang="en">
