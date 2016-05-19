@@ -13,20 +13,6 @@ if ($_SERVER['HTTPS'] != "on") {
    exit();
 }
 
-// Function for calculation free memory usage
-function get_server_memory_usage() {
-
-   $free = shell_exec('free');
-   $free = (string) trim($free);
-   $free_arr = explode("\n", $free);
-   $mem = explode(" ", $free_arr[1]);
-   $mem = array_filter($mem);
-   $mem = array_merge($mem);
-   $memory_usage = $mem[2] / $mem[1] * 100;
-
-   return $memory_usage;
-}
-
 // Function for calculating the color of the percentage bar
 function get_bar_color($value) {
    if ($value < 45) {
@@ -46,9 +32,8 @@ function get_bar_color($value) {
 $hdd = "simfs";
 
 // Building the FQDM based on hostname.domainname
-$system["hostname"] = exec("cat /etc/hostname") . "." . exec("dnsdomainname");
+$system["hostname"] = exec("cat /etc/hostname -f");
 // Getting OS type and kernel info via uname
-$system["os"] = exec("uname -mo");
 $system["uname"] = exec("uname -r");
 $system["uname_long"] = exec("uname -a");
 
@@ -59,7 +44,8 @@ $cpu = sys_getloadavg();
 // Array of usage Perentages
 
 $load["cpu"] = round($cpu[0] + 0.2, 1);
-$load["mem"] = round(get_server_memory_usage(), 1);
+// http://stackoverflow.com/questions/10585978/linux-command-for-percentage-of-memory-that-is-free#comment24064420_10586020
+$load["mem"] = round( 100 - exec("free | awk '/buffers\/cache/{print $4/($3+$4) * 100.0;}'"), 1);
 // http://stackoverflow.com/questions/12778853/calculate-percentage-free-swap-space-with-free-and-awk
 $load["swap"] = round((1 - exec("free | awk '/Swap/ { print $4/$2 }'")) * 100 + 0.2, 1);
 // http://unix.stackexchange.com/questions/64815/how-to-print-the-percentage-of-disk-use-from-df-hl
@@ -105,12 +91,12 @@ unset($hdd);
                   <span class="icon-bar"></span>
                </button>
                <!-- The FQDM on the left of the navbar -->
-               <a class="navbar-brand" href="#"><?php echo $system["hostname"] ?></a>
+               <a class="navbar-brand" href="https://line-lan.net"><?php echo $system["hostname"] ?></a>
             </div>
 
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
                <ul class="nav navbar-nav navbar-right">
-						<!-- Complete uname info on the right side on the navbar -->
+                  <!-- Complete uname info on the right side on the navbar -->
                   <p class="navbar-text"><?php echo $system["uname_long"] ?></p>
                </ul>
 
@@ -134,7 +120,7 @@ unset($hdd);
                         percentage that is used for the bar (see get_bar_color())
                         and finally filling ther percentage into the with attribute
                         of the progress bar
-						 -->
+                  -->
                   <h3>CPU</h3>
                   <div class="progress progress-striped">
                      <div class="progress-bar progress-bar-<?php echo get_bar_color($load["cpu"]) ?>" style="width: <?php echo $load["cpu"] . "%" ?>"></div>
