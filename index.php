@@ -71,6 +71,7 @@ unset($hdd);
 ?>
 
 <html lang="en">
+	<!-- The usual HTML header stuff -->
    <head>
       <meta charset="utf-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -94,20 +95,22 @@ unset($hdd);
    </head>
 
    <body>
+		<!-- Creating the top "navbar" -->
       <nav class="navbar navbar-inverse">
          <div class="container-fluid">
             <div class="navbar-header">
+					<!-- Button to expand uname info box on mobile devices -->
                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-2">
                   <span class="sr-only">Toggle navigation</span>
                   <span class="icon-bar"></span>
-                  <span class="icon-bar"></span>
-                  <span class="icon-bar"></span>
                </button>
+               <!-- The FQDM on the left of the navbar -->
                <a class="navbar-brand" href="#"><?php echo $system["hostname"] ?></a>
             </div>
 
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
                <ul class="nav navbar-nav navbar-right">
+						<!-- Complete uname info on the right side on the navbar -->
                   <p class="navbar-text"><?php echo $system["uname_long"] ?></p>
                </ul>
 
@@ -115,15 +118,23 @@ unset($hdd);
          </div>
       </nav>
 
+		<!-- The middle container with the resource usage bars -->
       <div class="container">
          <div class="row">
             <div class="col-sm-3">
             </div>
 
+            <!-- Creating a centered div with a pagewith of 1/2 of the page (full page on mobile) -->
             <div class="col-sm-6">
 
                <div class="well">
 
+						<!-- 	Now 4 times the same stuff:
+								We're creating a progress bar, calculate the color of the
+								percentage that is used for the bar (see get_bar_color())
+								and finally filling ther percentage into the with attribute
+								of the progress bar
+						 -->
                   <h3>CPU</h3>
                   <div class="progress progress-striped">
                      <div class="progress-bar progress-bar-<?php echo get_bar_color($load["cpu"]) ?>" style="width: <?php echo $load["cpu"] . "%" ?>"></div>
@@ -146,6 +157,7 @@ unset($hdd);
 
                </div>
 
+               <!-- The footer with necerassy links (at least in germany) -->
                <div class="well">
                   <center>
                      <a href="https://line-lan.net/datenschutz/">Privacy Policy</a> -
@@ -153,6 +165,7 @@ unset($hdd);
                      <a href="https://line-lan.net/kontakt/">Contact us</a>
 
                      <br/><br />
+                     <!-- Some copyright stuff -->
                      (c) 2012-<?php echo date("Y"); ?> Line-Lan
                   </center>                 
                </div>
@@ -163,6 +176,8 @@ unset($hdd);
             </div>
          </div>
       </div>
+
+		<!-- Some scripts to enable responsiveness (eg: the hamburger menu on the right side) -->
 
       <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
       <script src="res/js/jquery-1.12.3.min.js"></script>
