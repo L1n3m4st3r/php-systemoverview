@@ -71,7 +71,7 @@ unset($hdd);
 ?>
 
 <html lang="en">
-	<!-- The usual HTML header stuff -->
+   <!-- The usual HTML header stuff -->
    <head>
       <meta charset="utf-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -95,11 +95,11 @@ unset($hdd);
    </head>
 
    <body>
-		<!-- Creating the top "navbar" -->
+      <!-- Creating the top "navbar" -->
       <nav class="navbar navbar-inverse">
          <div class="container-fluid">
             <div class="navbar-header">
-					<!-- Button to expand uname info box on mobile devices -->
+               <!-- Button to expand uname info box on mobile devices -->
                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-2">
                   <span class="sr-only">Toggle navigation</span>
                   <span class="icon-bar"></span>
@@ -118,7 +118,7 @@ unset($hdd);
          </div>
       </nav>
 
-		<!-- The middle container with the resource usage bars -->
+      <!-- The middle container with the resource usage bars -->
       <div class="container">
          <div class="row">
             <div class="col-sm-3">
@@ -129,11 +129,11 @@ unset($hdd);
 
                <div class="well">
 
-						<!-- 	Now 4 times the same stuff:
-								We're creating a progress bar, calculate the color of the
-								percentage that is used for the bar (see get_bar_color())
-								and finally filling ther percentage into the with attribute
-								of the progress bar
+                  <!-- 	Now 4 times the same stuff:
+                        We're creating a progress bar, calculate the color of the
+                        percentage that is used for the bar (see get_bar_color())
+                        and finally filling ther percentage into the with attribute
+                        of the progress bar
 						 -->
                   <h3>CPU</h3>
                   <div class="progress progress-striped">
@@ -177,7 +177,7 @@ unset($hdd);
          </div>
       </div>
 
-		<!-- Some scripts to enable responsiveness (eg: the hamburger menu on the right side) -->
+      <!-- Some scripts to enable responsiveness (eg: the hamburger menu on the right side) -->
 
       <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
       <script src="res/js/jquery-1.12.3.min.js"></script>
