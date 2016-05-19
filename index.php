@@ -32,7 +32,7 @@ function get_bar_color($value) {
 $hdd = "simfs";
 
 // Building the FQDM based on hostname.domainname
-$system["hostname"] = exec("cat /etc/hostname -f");
+$system["hostname"] = exec("hostname -f");
 // Getting OS type and kernel info via uname
 $system["uname"] = exec("uname -r");
 $system["uname_long"] = exec("uname -a");
